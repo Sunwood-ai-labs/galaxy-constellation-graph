@@ -1,0 +1,13 @@
+const assert = require('node:assert/strict');
+const {normalize,safeUrl} = require('../graph-data.js');
+const sample = require('../data.json');
+assert.equal(normalize(sample).nodes.length,26);
+const large = {nodes:Array.from({length:40},(_,i)=>({id:'node-'+i,title:'Node '+i,group:'Custom'})),edges:[['node-0','node-39']]};
+assert.deepEqual(normalize(large).edges,[[0,39]]);
+assert.equal(normalize({nodes:[],edges:[]}).nodes.length,0);
+assert.throws(()=>normalize({nodes:[{id:1},{id:1}],edges:[]}));
+assert.throws(()=>normalize({nodes:[{id:1}],edges:[[1,2]]}));
+for(const url of ['javascript:alert(1)','data:text/html,hi','https://x/" onclick="x','//x.test','assets/../secret']) assert.throws(()=>safeUrl(url,true));
+assert.equal(safeUrl('https://example.com'), 'https://example.com');
+assert.equal(safeUrl('assets/image.jpg',true), 'assets/image.jpg');
+console.log('PASS: arbitrary IDs / 40 nodes / empty / duplicate IDs / bad edges / safe URLs');
