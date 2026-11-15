@@ -15,5 +15,13 @@ async function run(data,ok=true){
  r=await run({nodes:[{id:1,links:['javascript:alert(1)']}],edges:[]});assert(r.el('#status').textContent.includes('読み込めません'));
  r=await run({nodes:[{id:1,title:'<img onerror=bad>',group:'__proto__',date:'<b>date</b>'}],edges:[],scope:'<img onerror=bad>'});
  assert(!r.el('#world').innerHTML.includes('<img'));r.el('#scope').onclick();assert(!r.el('#detail').innerHTML.includes('<img'));
- console.log('PASS: 40-node render / empty graph / HTTP error / unsafe URL rejection / HTML escaping / custom category');
+ r=await run(require('../data.json'));
+ const click=(selector,dataset)=>r.handlers.click({target:{closest:s=>s===selector?{dataset}:null}});
+ r.el('#search').oninput({target:{value:'no-result'}});assert(r.el('#resultSummary').textContent.includes('該当なし'));
+ r.el('#resetFilters').onclick();assert.equal(r.el('#search').value,'');
+ click('[data-open]',{open:'8'});const first=r.el('#detail').innerHTML;r.el('#drawer').scrollTop=123;
+ click('[data-open]',{open:'9'});assert.equal(r.el('#detailBack').hidden,false);
+ r.el('#detailBack').onclick();assert.equal(r.el('#detail').innerHTML,first);assert.equal(r.el('#drawer').scrollTop,123);
+ click('[data-locate]',{locate:'9'});assert.equal(r.el('#drawer').hidden,true);assert(!/NaN/.test(r.el('#world').transform));
+ console.log('PASS: search feedback / detail back / locate /  40-node render / empty graph / HTTP error / unsafe URL rejection / HTML escaping / custom category');
 })().catch(e=>{console.error(e);process.exitCode=1});
