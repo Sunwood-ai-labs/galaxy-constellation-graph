@@ -1,72 +1,79 @@
+<div align="center">
+
+<img src="assets/icon.svg" width="80" alt="Galaxy Constellation Graph icon">
+
 # Galaxy Constellation Graph
 
-[公開デモを開く](https://sunwood-ai-labs.github.io/galaxy-constellation-graph/)
+Explore connected ideas as a constellation of nodes, links, and notes.
 
-白いキャンバス上でノードと辺、関連メモを探索する軽量なグラフ可視化アプリです。HTML / CSS / JavaScript のみで動きます。
+[![Checks](https://github.com/Sunwood-ai-labs/galaxy-constellation-graph/actions/workflows/check.yml/badge.svg)](https://github.com/Sunwood-ai-labs/galaxy-constellation-graph/actions/workflows/check.yml)
 
-## スクリーンショット
+**English** · [日本語](README.ja.md)
 
-![架空データを表示したグラフの実画面](assets/desktop.jpg)
+[Open live demo](https://sunwood-ai-labs.github.io/galaxy-constellation-graph/) · [User guide](docs/guide.md) · [Data format](docs/data-format.md)
 
-公開版を実際にブラウザで起動した画面です。26ノード・156メモはすべて架空のサンプルです。
+</div>
 
-<details><summary>スマホの実画面</summary>
+A lightweight, white-canvas graph explorer built with HTML, CSS, JavaScript, and SVG. No package install, API key, external API, or build step is needed. The interface is Japanese; documentation is available in English and Japanese.
 
-<img src="assets/mobile.jpg" alt="スマホ幅390pxの実画面" width="390">
+## ✨ What it does
+- Search node titles, descriptions, and notes; combine search with category filters.
+- Explore the graph or a readable list, then open details and related nodes.
+- Pan, zoom, fit the graph, and navigate using a keyboard.
+- Start in list view on narrow screens and switch to the graph when needed.
 
+This is not an astronomy simulator, automatic force-layout engine, or large-scale graph database. The 26 sample nodes and 156 notes are fictional. The first 26 node positions are hand-arranged; additional nodes use a deterministic spiral. The input limit is 500 nodes.
+
+## 🖼 Screenshots
+These are actual browser captures of the synthetic demo, not generated mockups.
+
+![Desktop constellation graph using fictional sample data](assets/desktop.jpg)
+
+<details>
+<summary>Mobile screenshot</summary>
+<img src="assets/mobile.jpg" alt="Synthetic demo at 390-pixel mobile viewport width" width="390">
 </details>
 
-## 機能
-- 検索、カテゴリ絞り込み、一覧表示
-- ノードと関連データの詳細パネル
-- ドラッグ移動、拡大縮小、全体表示
-- キーボード操作とモバイル向けレイアウト
+## 🚀 Run locally
+Install Python 3 and run from this repository:
 
-## 起動
 ```sh
 python -m http.server 8000
 ```
-http://localhost:8000 を開いてください。`fetch` を使うため、ファイルの直接ダブルクリックではなくHTTP経由で起動します。依存パッケージ、APIキー、外部APIは不要です。
 
-## データ形式
-`data.json` の `nodes` と `edges` を編集します。
-- `nodes`: `id`（重複しない文字列または数値）、`title`、`sub`、`group`、`desc`、`date`、`img`、`quotes`（関連メモ配列）、`links`
-- `quotes`: `id`、`date`、`text`、`author`。名称は元実装との互換性のため残しており、会話以外の説明や観察メモにも利用できます。
-- `edges`: 接続するノードIDのペア
-- `group`: SYSTEM / PLAY / MAKE / SIM / LEARN。ラベルや色は `app.js` の `G` で設定します。
+Open <http://localhost:8000>. If you use uv, `uv run --no-project python -m http.server 8000` is equivalent. Do not open index.html directly: loading JSON uses HTTP fetch. Bind to localhost with `--bind 127.0.0.1` if other devices should not connect.
 
-サンプルの26ノードは手調整した座標です。27個目以降は決定的な螺旋配置になります。入力上限は500ノードで、文字列ID・独自カテゴリも受け付けます。力学シミュレーションや大規模グラフ専用エンジンではありません。ノード数やラベル長によってはズーム・検索・一覧を使ってください。
+## 🧭 Learn and customize
+- [Operation, keyboard controls, troubleshooting / 操作ガイド](docs/guide.md)
+- [Data schema and limits / データ形式](docs/data-format.md)
+- [Static deployment and validation / 配布と検証](docs/deployment.md)
+- [Verification record and untested environments](QA.md)
+- [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md)
 
-## プライバシー
-このリポジトリは公開用に新規作成した架空データのみを含みます。元の私的会話、識別子、画像、保存先URL、認証情報、元リポジトリ履歴は含めていません。個人データを追加したコピーを公開する際は、公開範囲を必ず確認してください。外部解析タグはありません。
+Edit `data.json` to change nodes, edges, and notes. Keep personal data and secrets out of a public deployment. Category names and colors are configured in `app.js`.
 
-## 検証
+## 🧪 Validate
+Node.js 22 and Python 3.12 match CI. No npm dependencies are required.
+
 ```sh
-node --check app.js
-python tests/validate.py
-node tests/data.cjs
-node tests/smoke.cjs
-node tests/regression.cjs
-node tests/interaction.cjs
+node tests/check.cjs
 ```
 
-## 操作とトラブルシューティング
-- ドラッグで移動、ホイールまたはピンチで拡縮。「全体を見る」で配置全体に戻ります。
-- 検索はタイトル・説明・メモが対象。カテゴリと組み合わせできます。一覧では日付順に切替できます。
-- 検索欄の下に件数と「結果を見る」を表示。該当なしもその場で分かり、「条件をリセット」で検索とカテゴリを一度に解除できます。
-- 詳細の「前のノードへ」は直前の内容とスクロール位置へ戻ります。「このノードを地図で見る」は条件を解除してそのノードを中心に表示します。
-- キーボードでは検索・一覧からノードを選べます。グラフにフォーカス中は矢印で移動、＋／−で拡縮、0で全体表示。詳細の Escape は詳細だけを閉じ、一覧と選択元フォーカスを保持します。もう一度 Escape で一覧を閉じます。
-- 読込エラーが出たら HTTP サーバーの起動、data.json のJSON構文、IDの重複、辺の参照先を確認して再読み込みしてください。
-- メモ・画像・リンク・日付は省略可。リンクはHTTPSのみ、画像はHTTPSまたは assets/ 配下の相対パスです。危険なURLは読み込み時に拒否します。
+The command runs JavaScript syntax checks, synthetic-data checks, data/interaction regressions, and documentation links. It exits nonzero if any check fails. These tests include mock DOM checks; they are not proof of physical-device or assistive-technology compatibility.
 
-## 検証とCI
-GitHub Actions は構文、サンプルの架空データ監査、データ正規化とURL制限、mock DOMでの主要操作を確認します。mockテストは実ブラウザの描画保証ではありません。PC/スマホの描画・操作は別途実ブラウザで確認しています。PCは全体グラフ、スマホは読めるノード一覧を初期表示します。右上の「一覧／グラフ」で切り替えられます。
+## 📁 Repository
+| Path | Purpose |
+| --- | --- |
+| `index.html`, `style.css` | Accessible controls, layout, and presentation |
+| `app.js`, `graph-data.js` | Interaction and data normalization |
+| `data.json` | Fictional demonstration dataset |
+| `assets/` | Real screenshots and project icon |
+| `docs/`, `tests/` | Guides and verification |
 
-## デモ配信
-ビルド不要です。このフォルダーを静的HTTPサーバーで配信できます。GitHub Pagesを使う場合は main の / (root) を配信元に指定してください。非公開データを置かないでください。このリポジトリでは GitHub Pages を main / (root) から公開済みです。
+## 🔒 Privacy and limitations
+No authentication, analytics tags, or external API calls are included. The public sample contains no original private conversations, source images, or credentials. User-supplied links and images still need review: HTTPS alone does not establish trust or permission.
 
-## ライセンス
-現時点ではライセンス未指定です。公開されていることだけを理由に、再配布・改変の包括的な許諾があるとは扱わないでください。ライセンス選択は所有者の判断として保留しています。
+Windows Chrome and responsive viewport testing are recorded in [QA.md](QA.md). Physical iPhone/Android devices, Safari, screen readers, and OS keyboards are not verified. Pinch testing used synthetic events. No WCAG conformance claim is made.
 
-## セキュリティ
-認証・外部API・解析タグはありません。文字列は表示時にエスケープし、URLは許可方式で検証します。公開に適したデータかどうかを自動保証するものではありません。個人情報・秘密・権利のない素材は追加しないでください。
+## ⚖ License
+No license has been selected by the owner. Public visibility is not a blanket permission to redistribute or modify this code. A license decision remains open; no license badge or permission grant is implied.

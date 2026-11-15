@@ -1,0 +1,23 @@
+name: Bug report / 不具合
+description: Report a reproducible problem with synthetic data.
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: Browser and device / ブラウザ・端末
+      description: Include version and viewport; state real device or emulation.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps / 再現手順
+      description: Use fictional data only. Never include secrets or private conversations.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual / 期待と実際
+    validations:
+      required: true

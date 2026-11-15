@@ -1,0 +1,14 @@
+name: Feature request / 改善提案
+description: Explain the task you want to complete.
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal and difficulty / 目的と困りごと
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change / 提案
+      description: Include desktop/mobile needs; use no private data.

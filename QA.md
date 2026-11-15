@@ -29,3 +29,10 @@ Responsive viewport testing is not a physical iPhone/Android test. Multi-finger 
 - No claim of physical touch-device or Safari validation. Multi-touch is synthetic-event verification, not hardware testing.
 
 Independent PC browser review (1920×1031) also confirmed initial Tab to header, list focus entry, Enter to open, Shift+Tab wrap, related-node/back, top-layer Escape and list focus restoration, empty-search reset, arrow-key pan, node-origin drag without accidental opening, and a subsequent normal tap. A separate missing-data local page displayed the expected actionable error message.
+
+## Repository presentation pass (2026-11-15)
+- Added parallel English/Japanese README files, operation/data/deployment guides, contribution and security guidance, issue/PR templates and a dated changelog.
+- Added favicon, page description and Open Graph metadata. No application behavior was changed in this pass.
+- `node tests/check.cjs` passed syntax, synthetic-data, smoke, regression, interaction and documentation-reference checks locally. Documentation checks cover relative file references, not external uptime or section anchors.
+- Existing screenshots remain actual synthetic-demo views. The public desktop demo was visually checked again in Chrome; this pass does not extend the hardware/Safari/accessibility coverage above.
+- The license decision remains with the owner. Secret-pattern checks are a limited safeguard, not proof that arbitrary input is free of sensitive data.
