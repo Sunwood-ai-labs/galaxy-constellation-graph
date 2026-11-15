@@ -1,0 +1,46 @@
+const { test, expect } = require('@playwright/test');
+test('search, detail history, modal focus and map controls', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/');
+  await expect(page.locator('#nodeCount')).toHaveText('26');
+  await expect(page.locator('#results .list-row')).toHaveCount(26);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.locator('#search').fill('no-such-node-xyz');
+  await expect(page.locator('#results .list-row')).toHaveCount(0);
+  await page.locator('#resetFilters').click();
+  await page.locator('#resultSummary').click();
+  const first = page.locator('#results .list-row').first();
+  await first.click();
+  await expect(page.locator('#drawer')).toBeVisible();
+  const heading = await page.locator('#detail h2').textContent();
+  await expect(page.locator('#close')).toBeFocused();
+  await page.keyboard.press('Shift+Tab');
+  expect(await page.evaluate(() => document.querySelector('#drawer').contains(document.activeElement))).toBe(true);
+  await page.locator('#detail .related[data-open]').first().click();
+  await expect(page.locator('#detailBack')).toBeVisible();
+  await page.locator('#detailBack').click();
+  await expect(page.locator('#detail h2')).toHaveText(heading);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#drawer')).toBeHidden();
+  await expect(first).toBeFocused();
+  await page.locator('#listClose').click();
+  const world = page.locator('#world');
+  const initial = await world.getAttribute('transform');
+  await page.locator('#plus').click();
+  await expect(world).not.toHaveAttribute('transform', initial);
+  await page.locator('#reset').click();
+  const reset = await world.getAttribute('transform');
+  await page.locator('#map').focus();
+  await page.keyboard.press('ArrowRight');
+  await expect(world).not.toHaveAttribute('transform', reset);
+  await page.keyboard.press('0');
+  await expect(world).toHaveAttribute('transform', reset);
+  expect(errors).toEqual([]);
+});
+test('failed data request gives an actionable visible error', async ({ page }) => {
+  await page.route('**/data.json', route => route.fulfill({ status: 503, body: '' }));
+  await page.goto('/');
+  await expect(page.locator('#status')).toContainText('data.json');
+});
+

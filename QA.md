@@ -36,3 +36,6 @@ Independent PC browser review (1920×1031) also confirmed initial Tab to header,
 - `node tests/check.cjs` passed syntax, synthetic-data, smoke, regression, interaction and documentation-reference checks locally. Documentation checks cover relative file references, not external uptime or section anchors.
 - Existing screenshots remain actual synthetic-demo views. The public desktop demo was visually checked again in Chrome; this pass does not extend the hardware/Safari/accessibility coverage above.
 - The license decision remains with the owner. Secret-pattern checks are a limited safeguard, not proof that arbitrary input is free of sensitive data.
+
+## Automated browser suite
+The Playwright suite runs Chromium at desktop/narrow widths and WebKit at a narrow width. It is separate from the dependency-free Node DOM tests. A narrow viewport is not a hardware touch-device test, and Linux WebKit is not installed Safari. CI logs are the source of truth for each commit's actual result; adding tests is not itself a passing result.

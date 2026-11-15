@@ -14,3 +14,6 @@ jobs:
         with:
           python-version: '3.12'
       - run: node tests/check.cjs
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm run test:browser

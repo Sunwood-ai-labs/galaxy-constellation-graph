@@ -1,0 +1,1 @@
+{"name":"galaxy-constellation-graph","private":true,"scripts":{"test":"node tests/check.cjs","test:browser":"playwright test"},"devDependencies":{"@playwright/test":"1.65.1"}}

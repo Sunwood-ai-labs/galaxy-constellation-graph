@@ -36,3 +36,6 @@ CIも同じ一括コマンドを実行します。文書チェックは相対フ
 5. Preserve [QA limitations](../QA.md); do not call mocked gestures hardware tests.
 
 ライセンスは未指定です。公開範囲や権限は変更せず、リリース・配布条件は所有者の判断を尊重してください。
+
+## Browser regression automation
+The optional development dependency is pinned in package-lock.json. Run `npm ci`, `npx playwright install chromium webkit`, then `npm run test:browser`. CI installs Linux browser dependencies automatically. The suite starts a loopback-only Python HTTP server and tests actual Chromium (1440/390 px) and WebKit (390 px) engines: search/reset, detail/history/focus restoration, keyboard pan/zoom/reset, overflow, runtime errors and failed data loading. These are automated desktop browser engines with viewport overrides, not physical phones or installed Safari. Multi-touch, OS keyboards and screen readers remain outside this suite.
