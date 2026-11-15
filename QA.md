@@ -39,3 +39,5 @@ Independent PC browser review (1920×1031) also confirmed initial Tab to header,
 
 ## Automated browser suite
 The Playwright suite runs Chromium at desktop/narrow widths and WebKit at a narrow width. It is separate from the dependency-free Node DOM tests. A narrow viewport is not a hardware touch-device test, and Linux WebKit is not installed Safari. CI logs are the source of truth for each commit's actual result; adding tests is not itself a passing result.
+
+On 2026-11-15, CI run 43717705941 passed all six browser cases (two cases across three engine/viewport projects) at commit 21093ba, alongside the existing dependency-free checks. This confirms the stated automated scope, not hardware Safari/touch/accessibility coverage.

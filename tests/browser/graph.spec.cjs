@@ -43,4 +43,3 @@ test('failed data request gives an actionable visible error', async ({ page }) =
   await page.goto('/');
   await expect(page.locator('#status')).toContainText('data.json');
 });
-

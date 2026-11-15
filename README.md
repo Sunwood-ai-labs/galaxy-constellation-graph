@@ -53,10 +53,17 @@ Open <http://localhost:8000>. If you use uv, `uv run --no-project python -m http
 Edit `data.json` to change nodes, edges, and notes. Keep personal data and secrets out of a public deployment. Category names and colors are configured in `app.js`.
 
 ## 🧪 Validate
-Node.js 22 and Python 3.12 match CI. No npm dependencies are required.
+Node.js 22 and Python 3.12 match CI. The basic checks need no npm dependencies; the optional browser suite uses pinned Playwright.
 
 ```sh
 node tests/check.cjs
+```
+
+Browser regression (Chromium + WebKit, not physical phones):
+```sh
+npm ci
+npx playwright install chromium webkit
+npm run test:browser
 ```
 
 The command runs JavaScript syntax checks, synthetic-data checks, data/interaction regressions, and documentation links. It exits nonzero if any check fails. These tests include mock DOM checks; they are not proof of physical-device or assistive-technology compatibility.

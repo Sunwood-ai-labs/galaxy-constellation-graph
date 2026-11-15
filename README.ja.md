@@ -53,10 +53,17 @@ python -m http.server 8000
 `data.json` のnodes/edgesを編集します。公開時は個人情報・秘密を含めないでください。カテゴリの名称と色は `app.js` で設定します。
 
 ## 🧪 検証
-CIと同じ環境はNode.js 22、Python 3.12です。npm依存は不要です。
+CIと同じ環境はNode.js 22、Python 3.12です。基本検査にはnpm依存は不要です。実ブラウザ検査には固定版Playwrightを使います。
 
 ```sh
 node tests/check.cjs
+```
+
+Browser regression (Chromium + WebKit, not physical phones):
+```sh
+npm ci
+npx playwright install chromium webkit
+npm run test:browser
 ```
 
 構文、架空データ、データ処理、操作回帰、文書リンクを一括検証します。失敗時は終了コードが0以外になります。mock DOMテストは実機や支援技術の動作保証ではありません。
