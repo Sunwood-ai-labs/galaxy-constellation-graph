@@ -1,7 +1,8 @@
 <!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5"><title>Galaxy Constellation Graph</title><link rel="stylesheet" href="style.css"><body>
-<main id="space"><svg id="map" aria-label="ノードと辺がつながるグラフ"><g id="world"></g></svg></main>
+
 <header><a class="brand" href="#" id="home">Constellation <b>Graph</b><small>GALAXY CONSTELLATION GRAPH</small></a><div class="top-actions"><button id="listToggle">☷ <span>一覧</span></button><button id="scope">使い方</button></div></header>
-<div class="tools"><label>⌕ <input id="search" placeholder="ノードを探す" aria-label="ノードを探す"><button id="clear" aria-label="検索を消す">×</button></label><div id="filters"></div><div class="search-feedback"><button id="resultSummary" aria-live="polite">読み込み中</button><button id="resetFilters" hidden>条件をリセット</button></div></div>
+<div class="tools"><label>⌕ <input id="search" type="search" enterkeyhint="search" placeholder="ノードを探す" aria-label="ノードを探す"><button id="clear" aria-label="検索を消す">×</button></label><div id="filters"></div><div class="search-feedback"><button id="resultSummary" aria-live="polite">読み込み中</button><button id="resetFilters" hidden>条件をリセット</button></div></div>
 <div id="bottom"><div class="legend"><span class="live"></span><b id="nodeCount">0</b> のノードから広がる、架空のサンプル<small>ドラッグで移動 · ピンチ／スクロールで拡大</small></div><nav><button id="minus" aria-label="縮小">−</button><button id="reset">⌗ 全体を見る</button><button id="plus" aria-label="拡大">＋</button></nav></div>
-<div id="list" hidden><div class="list-head"><h2>ノードをたどる</h2><button id="time">日付順に並べる</button><button id="listClose" aria-label="一覧を閉じる">×</button></div><div id="results"></div></div>
+<main id="space"><svg id="map" tabindex="0" aria-label="ノードと辺がつながるグラフ"><g id="world"></g></svg></main>
+<div id="list" hidden><div class="list-head"><h2>ノード一覧</h2><button id="time">日付順</button><button id="listClose" aria-label="一覧を閉じる">グラフへ</button></div><div id="results"></div></div>
 <div id="shade" hidden></div><aside id="drawer" role="dialog" aria-modal="true" aria-label="ノードの詳細" hidden><button id="detailBack" hidden>← 前のノードへ</button><button id="close" aria-label="詳細を閉じる">✕</button><div id="detail"></div></aside><p id="status" role="status" aria-live="polite"></p><script src="graph-data.js"></script><script src="app.js"></script></body></html>

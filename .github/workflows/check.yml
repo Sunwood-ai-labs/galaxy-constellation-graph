@@ -15,4 +15,4 @@ jobs:
           python-version: '3.12'
       - run: node --check app.js && node --check graph-data.js
       - run: python tests/validate.py
-      - run: node tests/data.cjs && node tests/smoke.cjs && node tests/regression.cjs
+      - run: node tests/data.cjs && node tests/smoke.cjs && node tests/regression.cjs && node tests/interaction.cjs

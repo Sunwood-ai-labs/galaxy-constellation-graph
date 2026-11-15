@@ -3,7 +3,7 @@ const GraphData=require('../graph-data.js');
 async function run(data,ok=true){
  const els=new Map(),handlers={};
  const el=s=>{if(!els.has(s))els.set(s,{hidden:true,textContent:'',value:'',innerHTML:'',dataset:{},classList:{add(){},remove(){},toggle(){}},setAttribute(k,v){this[k]=v},focus(){},querySelectorAll(){return []}});return els.get(s)};
- const document={querySelector:el,querySelectorAll:()=>[],activeElement:{focus(){}},body:{classList:{add(){},remove(){}}},addEventListener:(k,v)=>handlers[k]=v};
+ const document={querySelector:el,querySelectorAll:()=>[],activeElement:{focus(){}},body:{classList:{add(){},remove(){},toggle(){}}},addEventListener:(k,v)=>handlers[k]=v};
  await vm.runInNewContext(fs.readFileSync('app.js','utf8'),{GraphData,document,fetch:async()=>({ok,status:404,json:async()=>data}),innerWidth:390,innerHeight:844,addEventListener(){},console:{error(){}}});
  return {el,handlers};
 }
